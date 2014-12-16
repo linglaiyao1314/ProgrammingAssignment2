@@ -4,18 +4,20 @@
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
-    inverse <- NULL
-    #set the value of our matrix
+    #逆矩阵初始化
+    inverse <- NULL 
+    #设置矩阵的值
     set <- function(y){
         x <<- y
         inverse <<- NULL
     }
-    #use the get function to get our matrix
+    #获取矩阵的值
     get <- function() x
-    
-    #set the inverse matrix and store it in variable inverse
+    #设置逆矩阵的值
     setinverse <- function(inma) inverse <<- inma
+    #获取逆矩阵的值
     getinverse <- function() inverse
+    #返回函数列表
     list(set=set, get=get,
          setinverse=setinverse,
          getinverse=getinverse)
@@ -24,17 +26,17 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ## Write a short comment describing this function
 cacheSolve <- function(x, ...) {
-    ## Return a matrix that is the inverse of 'x'
+    #取逆矩阵的值
     inverse <- x$getinverse()  
-    #if the inverse matrix not null then return it 
+    #若非null值，则直接返回结果
     if(!is.null(inverse)){
         message("getting cached data")
         return(inverse)
     }
-    #store the original matrix
-    data <- x$get()
-    #caculate the inverse matrix of the data
-    inverse <- solve(data)
+    #计算其逆矩阵
+    inverse <- solve(x$get())
+    #设置逆矩阵结果
     x$setinverse(inverse)
+    #返回逆矩阵
     inverse
 }
